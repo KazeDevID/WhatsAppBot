@@ -22,8 +22,6 @@ const pluginDir = path.join(__dirname, 'plugins');
 loadPlugins(pluginDir);
 watchPlugins(pluginDir);
 
-const { createDashboardServer } = require('./lib/server');
-
 const botState = {
   status: 'initializing',
   pairingCode: null,
@@ -89,14 +87,6 @@ async function runTestCommand(commandText) {
   await handleCommand(activeSock, mockM, config);
   return replies.length ? replies.join('\n\n') : 'Command processed successfully.';
 }
-
-createDashboardServer({
-  config,
-  plugins,
-  getBotState: () => botState,
-  requestPairingCode,
-  runTestCommand
-});
 
 async function startBot() {
   const connSpinner = logger.createSpinner('Connecting.....');
